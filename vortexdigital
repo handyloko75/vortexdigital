@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vortex Digital — Free Commercial for Your Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #050505;
+    --white: #f5f2ec;
+    --gold: #d4a832;
+    --gold-light: #f0c84a;
+    --gray: #111111;
+    --gray2: #1a1a1a;
+    --muted: #666;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 3rem;
+    backdrop-filter: blur(14px);
+    background: rgba(5,5,5,0.85);
+    border-bottom: 1px solid rgba(212,168,50,0.1);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+  }
+  .logo span { color: var(--white); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.6rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 55% 60% at 75% 50%, rgba(212,168,50,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 30% 35% at 15% 70%, rgba(212,168,50,0.04) 0%, transparent 60%);
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 850px; }
+
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    line-height: 0.88;
+    letter-spacing: 0.02em;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+
+  .hero h1 .outline {
+    -webkit-text-stroke: 1px rgba(245,242,236,0.35);
+    color: transparent;
+  }
+
+  .hero h1 em { font-style: normal; color: var(--gold); }
+
+  .hero-desc {
+    margin-top: 2.5rem;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: var(--muted);
+    max-width: 500px;
+    line-height: 1.8;
+    animation: fadeUp 1s 0.25s ease both;
+  }
+
+  .hero-btns {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 1s 0.4s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(245,242,236,0.2);
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* TICKER */
+  .ticker {
+    overflow: hidden;
+    padding: 0.9rem 0;
+    background: var(--gray);
+    border-top: 1px solid rgba(212,168,50,0.12);
+    border-bottom: 1px solid rgba(212,168,50,0.12);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: ticker 25s linear infinite;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .ticker-track span { color: var(--gold); }
+
+  /* SECTIONS */
+  .section { padding: 7rem 3rem; position: relative; z-index: 1; }
+  .section-alt { background: var(--gray); }
+
+  .section-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 540px;
+    margin-bottom: 4rem;
+  }
+
+  /* HOW IT WORKS */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2px;
+    max-width: 1100px;
+  }
+
+  .step {
+    background: var(--gray2);
+    padding: 3rem 2rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .step:hover { background: #222; }
+  .step::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .step:hover::before { opacity: 1; }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4.5rem;
+    color: rgba(212,168,50,0.1);
+    line-height: 1;
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+  }
+
+  .step-icon { font-size: 2rem; margin-bottom: 1.2rem; }
+
+  .step h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+
+  .step p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+  /* WHAT YOU GET */
+  .get-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1000px;
+  }
+
+  .get-grid h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .get-grid h2 em { font-style: normal; color: var(--gold); }
+
+  .get-grid p { color: var(--muted); line-height: 1.8; font-size: 0.95rem; margin-bottom: 2rem; }
+
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--white);
+    line-height: 1.5;
+  }
+  .checklist li::before { content: '✦'; color: var(--gold); font-size: 0.65rem; margin-top: 0.3rem; flex-shrink: 0; }
+
+  /* SCALE BANNER */
+  .scale-banner {
+    background: var(--gray2);
+    border: 1px solid rgba(212,168,50,0.2);
+    margin: 0 3rem;
+    padding: 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scale-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(212,168,50,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .scale-banner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .scale-banner h2 em { font-style: normal; color: var(--gold); }
+
+  .scale-banner p {
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+    font-size: 0.95rem;
+    position: relative;
+  }
+
+  /* FAQ */
+  .faq-list { max-width: 700px; display: flex; flex-direction: column; gap: 2px; }
+
+  .faq-item { background: var(--gray2); }
+
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(212,168,50,0.08);
+    color: var(--white);
+    padding: 1.4rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s;
+  }
+  .faq-q:hover { color: var(--gold); }
+
+  .faq-icon { color: var(--gold); font-size: 1.3rem; flex-shrink: 0; transition: transform 0.3s; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+  .faq-a {
+    display: none;
+    padding: 1rem 1.5rem 1.4rem;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.75;
+    border-bottom: 1px solid rgba(212,168,50,0.08);
+  }
+  .faq-item.open .faq-a { display: block; }
+
+  /* CONTACT */
+  .contact-inner { max-width: 620px; margin: 0 auto; text-align: center; }
+
+  .form { display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-top: 2.5rem; }
+
+  .form input, .form select, .form textarea {
+    background: var(--gray2);
+    border: 1px solid rgba(255,255,255,0.07);
+    color: var(--white);
+    padding: 1rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  .form input:focus, .form select:focus, .form textarea:focus { border-color: var(--gold); }
+  .form input::placeholder, .form textarea::placeholder { color: #444; }
+  .form select option { background: var(--gray2); }
+  .form textarea { resize: vertical; min-height: 110px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form .btn-primary { width: 100%; text-align: center; padding: 1.1rem; font-size: 0.88rem; margin-top: 0.5rem; }
+  .form-note { text-align: center; font-size: 0.72rem; color: #444; margin-top: 0.8rem; letter-spacing: 0.05em; }
+
+  .success-msg {
+    display: none;
+    margin-top: 1rem;
+    padding: 1.2rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.88rem;
+    text-align: center;
+    background: rgba(212,168,50,0.06);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 2rem;
+  }
+  .footer-center { text-align: center; font-size: 0.72rem; color: var(--muted); line-height: 1.9; }
+  .footer-right { text-align: right; font-size: 0.72rem; color: var(--muted); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .section { padding: 5rem 1.5rem; }
+    .get-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .scale-banner { margin: 0 1.5rem; padding: 3rem 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; text-align: center; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Vortex<span>Digital</span></div>
+  <a href="#contacto" class="nav-cta">Get Free Video</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Free Commercial for Your Business</p>
+    <h1>WE MAKE<br><em>YOUR VIDEO.</em><br><span class="outline">YOU GO VIRAL.</span></h1>
+    <p class="hero-desc">We create a professional promotional video for your business — completely free. You see it live on social media. No studio. No cost. No catch.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-primary">Get My Free Video Now</a>
+      <a href="#como-funciona" class="btn-ghost">How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span>✦</span> 100% Free &nbsp;<span>✦</span> Facebook &nbsp;<span>✦</span> Instagram &nbsp;<span>✦</span> TikTok &nbsp;<span>✦</span> YouTube &nbsp;<span>✦</span> LinkedIn &nbsp;<span>✦</span> Pinterest &nbsp;<span>✦</span> X / Twitter &nbsp;<span>✦</span> Google Business &nbsp;<span>✦</span> 15–45 Second Videos &nbsp;<span>✦</span> AI-Powered &nbsp;<span>✦</span> No Studio Needed &nbsp;
+    <span>✦</span> 100% Free &nbsp;<span>✦</span> Facebook &nbsp;<span>✦</span> Instagram &nbsp;<span>✦</span> TikTok &nbsp;<span>✦</span> YouTube &nbsp;<span>✦</span> LinkedIn &nbsp;<span>✦</span> Pinterest &nbsp;<span>✦</span> X / Twitter &nbsp;<span>✦</span> Google Business &nbsp;<span>✦</span> 15–45 Second Videos &nbsp;<span>✦</span> AI-Powered &nbsp;<span>✦</span> No Studio Needed &nbsp;
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona" class="section">
+  <div class="reveal">
+    <span class="section-tag">The Process</span>
+    <h2 class="section-title">Simple. Fast.<br>Powerful.</h2>
+    <p class="section-sub">From your idea to a live commercial in 48–72 hours. No equipment, no studio, no experience needed.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">📋</div>
+      <h3>Tell Us Your Idea</h3>
+      <p>Fill out the form below. Tell us about your business and what you want to show the world. We handle the rest.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon">🎬</div>
+      <h3>We Create Your Video</h3>
+      <p>Our AI produces a professional 15–45 second promotional video tailored to your business and your message.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon">📲</div>
+      <h3>You Get a Preview</h3>
+      <p>We send you a screen recording of your video so you can see it before it goes live. Your approval matters.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <div class="step-icon">🚀</div>
+      <h3>We Post It Live</h3>
+      <p>Your commercial goes live on Vortex Digital's social channels. We send you the direct link so you can share it everywhere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="section section-alt">
+  <div class="get-grid reveal">
+    <div>
+      <span class="section-tag">What's Included</span>
+      <h2>Everything you need.<br><em>Nothing to pay.</em></h2>
+      <p>Your free commercial includes everything a professional promotion needs — powered by AI, delivered fast, posted on real social media channels with real reach.</p>
+      <a href="#contacto" class="btn-primary">Claim My Free Commercial</a>
+    </div>
+    <ul class="checklist">
+      <li>Professional AI-generated promotional video (15–45 seconds)</li>
+      <li>Option to include your photos or business images</li>
+      <li>Screen recording preview sent to you before posting</li>
+      <li>Published on Vortex Digital's social media channels</li>
+      <li>Direct link to your live commercial — share it anywhere</li>
+      <li>Posted across Facebook, Instagram, TikTok, YouTube & more</li>
+      <li>One free commercial per business — no exceptions</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SCALE BANNER -->
+<div class="scale-banner reveal" id="escalar">
+  <h2>Love your results?<br><em>Let's go bigger.</em></h2>
+  <p>Once you see what AI-powered promotion can do for your business, you can connect your own social channels and run fully automated content 24/7 — across all platforms, around the clock.</p>
+  <a href="https://autopilots.dania.ai/#via=cesar" target="_blank" class="btn-primary">Explore Full Automation →</a>
+</div>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="reveal">
+    <span class="section-tag">Questions</span>
+    <h2 class="section-title">Good questions<br>deserve real answers.</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>Is the video really free?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Yes — 100% free. No credit card, no contract, no hidden fees. We create and post your commercial at zero cost. Our goal is to show you the value before asking for anything.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>How long is the video?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Between 15 and 45 seconds depending on your idea and message. This is the ideal range for social media engagement — long enough to communicate, short enough to hold attention.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>Do I need to send photos or videos?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">You can if you want — photos of your business, products or team help personalize the video. But it's optional. Our AI can create a great commercial even without them.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>Where will my video be posted?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">On Vortex Digital's social media channels — Facebook, Instagram, TikTok, YouTube, LinkedIn and more. We send you the direct link once it's live so you can share it with your own audience.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>How long does it take?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">48 to 72 hours from the moment you submit your request. We'll send you a preview first — you'll see your commercial before it goes live.</div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>What if I want more after the free video?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">If you love your results, you can connect your own social channels to a full AI-powered automation system — posting content 24/7 across all platforms without lifting a finger. We'll send you the link to explore that option.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto" class="section section-alt">
+  <div class="contact-inner">
+    <span class="section-tag reveal">Start Here</span>
+    <h2 class="section-title reveal">Get your free<br>commercial today.</h2>
+    <p class="reveal" style="color:var(--muted);">Fill out the form and we'll reach out within 24 hours to get your video started.</p>
+    <div class="form">
+      <div class="form-row">
+        <input type="text" id="nombre" placeholder="Your name" required>
+        <input type="text" id="empresa" placeholder="Business name" required>
+      </div>
+      <input type="email" id="email" placeholder="Email address" required>
+      <input type="tel" id="tel" placeholder="Phone / WhatsApp">
+      <select id="plataforma">
+        <option value="" disabled selected>Preferred social platform for your video</option>
+        <option value="instagram">Instagram / Reels</option>
+        <option value="tiktok">TikTok</option>
+        <option value="facebook">Facebook</option>
+        <option value="youtube">YouTube Shorts</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="all">All platforms</option>
+      </select>
+      <textarea id="mensaje" placeholder="Tell us about your business and what you want to promote..." required></textarea>
+      <button class="btn-primary" onclick="enviar()">SEND MY REQUEST →</button>
+      <p class="form-note">No spam. No commitment. We'll contact you within 24 hours.</p>
+      <div class="success-msg" id="successMsg">✦ We got it! Expect a message from us within 24 hours. Your free commercial is on its way. ✦</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Vortex<span>Digital</span></div>
+  <div class="footer-center">
+    <p>© 2026 Vortex Digital — Promotion & Visibility Platform</p>
+    <p>📞 (805) 799-6317 &nbsp;·&nbsp; Ventura County, CA</p>
+  </div>
+  <div class="footer-right">
+    <p>Serving businesses<br>across the USA</p>
+  </div>
+</footer>
+
+<script>
+  // Reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // FAQ
+  function toggleFaq(btn) {
+    btn.parentElement.classList.toggle('open');
+  }
+
+  // Form
+  function enviar() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+    if (!nombre || !email || !mensaje) { alert('Please fill in your name, email and business description.'); return; }
+    document.getElementById('successMsg').style.display = 'block';
+    document.querySelectorAll('.form input, .form select, .form textarea, .form button').forEach(el => el.disabled = true);
+  }
+</script>
+</body>
+</html>
